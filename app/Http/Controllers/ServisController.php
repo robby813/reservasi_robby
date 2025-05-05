@@ -39,9 +39,10 @@ class ServisController extends Controller
      * Display the specified resource.
      */
     public function show(string $id)
-    {
-        //
-    }
+{
+    $berita = \App\Models\Berita::with('kategori')->findOrFail($id);
+    return view('servis.show', compact('berita'));
+}
 
     /**
      * Show the form for editing the specified resource.

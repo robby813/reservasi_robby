@@ -32,7 +32,7 @@
         </div>
 
         <div class="mb-3">
-            <label for="harga_per_pack" class="form-label">Harga per Pack</label>
+            <label for="harga_per_pack" class="form-label">Harga/Hari</label>
             <input type="number" class="form-control" id="harga_per_pack" name="harga_per_pack" required>
         </div>
 

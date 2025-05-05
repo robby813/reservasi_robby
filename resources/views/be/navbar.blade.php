@@ -167,7 +167,7 @@
                                     </a>
 
                                     <!-- Hidden logout form -->
-                                    <form id="logout-form" action="{{ route('logout') }}" method="GET" style="display: none;">
+                                    <form id="logout-form" action="{{ route('logout_karyawan') }}" method="GET" style="display: none;">
                                         @csrf
                                     </form>
                                 </div>

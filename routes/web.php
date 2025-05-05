@@ -1,28 +1,20 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController;
-
-
-
-// Tampilkan halaman login
-use App\Http\Controllers\Auth\LoginController;
-
-Route::middleware(['guest'])->group(function () {
-    Route::get('/login', [LoginController::class, 'index'])->name('login');
-    Route::post('/login_proses', [LoginController::class, 'login'])->name('login_proses');
-});
-
-
-Route::get('/logout', [\App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
-
-
+use App\Http\Controllers\Auth_LoginController;
 Route::get('/', function () {
     return view('welcome');
 });
-use App\Http\Controllers\AdminController;
-Route::resource('/admin', \App\Http\Controllers\AdminController::class, );
-use App\Http\Controllers\HomeController;
+
+Route::middleware('guest:karyawan')->group(function () {
+    Route::get('/login_karyawan', [Auth_LoginController::class, 'index'])->name('login');
+    Route::post('/authenticate', [Auth_LoginController::class, 'authenticate'])->name('authenticate');
+});
+Route::get('/logout', [Auth_LoginController::class, 'logout'])->name('logout_karyawan');
+
+Route::middleware('auth:karyawan')->group(function () {
+    Route::resource('/admin', \App\Http\Controllers\AdminController::class, );
+});
 Route::resource('/', \App\Http\Controllers\HomeController::class);
 Route::resource('/home', \App\Http\Controllers\HomeController::class);
 Route::resource('/about', \App\Http\Controllers\AboutController::class);
@@ -60,8 +52,11 @@ Route::get('/obyek_wisata/create', [ObyekWisataController::class, 'create'])->na
 use App\Http\Controllers\PenginapanController;
 
 use App\Http\Controllers\BeritaController;
+use App\Http\Controllers\PaketWisataController;
+use App\Models\PaketWisata;
 
 Route::resource('berita', BeritaController::class);
+Route::resource('paket_wisata', PaketWisataController::class);
 
 
 
@@ -69,12 +64,3 @@ Route::resource('penginapan', PenginapanController::class);
 
 use App\Http\Controllers\ReservasiController;
 Route::resource('reservasi', ReservasiController::class);
-
-
-
-
-
-Route::prefix('pelanggan')->name('pelanggan.')->group(function () {
-    Route::get('/login', [LoginController::class, 'index'])->name('login');
-    // Route lain seperti post login dll
-});

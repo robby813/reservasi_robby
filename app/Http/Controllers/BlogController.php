@@ -40,8 +40,10 @@ class BlogController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $paket = \App\Models\PaketWisata::findOrFail($id);
+        return view('blog.show', compact('paket'));
     }
+
 
     /**
      * Show the form for editing the specified resource.

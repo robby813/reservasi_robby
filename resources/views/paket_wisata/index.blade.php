@@ -19,13 +19,14 @@
     <div class="alert alert-success">{{ session('success') }}</div>
     @endif
 
-    <table class="table table-bordered">
-        <thead>
+    <table class="table table-bordered table-striped align-middle">
+        <thead class="table-light text-center">
             <tr>
                 <th>No</th>
                 <th>Nama Paket</th>
                 <th>Deskripsi</th>
-                <th>Harga per Pack</th>
+                <th>Fasilitas</th>
+                <th>Harga/Hari</th>
                 <th>Foto1</th>
                 <th>Foto2</th>
                 <th>Foto3</th>
@@ -36,49 +37,50 @@
         <tbody>
             @foreach($pakets as $index => $paket)
             <tr>
-                <td>{{ $index + 1 }}</td>
+                <td class="text-center">{{ $index + 1 }}</td>
                 <td>{{ $paket->nama_paket }}</td>
-                <td>{{ $paket->deskripsi }}</td>
-                <td>{{ number_format($paket->harga_per_pack, 0, ',', '.') }}</td>
+                <td style="max-width: 200px;">{{ \Illuminate\Support\Str::limit($paket->deskripsi, 15) }}</td>
+                <td style="max-width: 150px;">{{ \Illuminate\Support\Str::limit($paket->fasilitas, 15) }}</td>
+                <td class="text-end">Rp {{ number_format($paket->harga_per_pack, 0, ',', '.') }}</td>
 
                 <!-- Foto1 -->
-                <td>
+                <td class="text-center">
                     @if($paket->foto1)
                         <img src="{{ asset('storage/' . $paket->foto1) }}" alt="foto1" width="50" height="50">
                     @else
-                        Tidak ada foto
+                        <span class="text-muted">-</span>
                     @endif
                 </td>
 
                 <!-- Foto2 -->
-                <td>
+                <td class="text-center">
                     @if($paket->foto2)
                         <img src="{{ asset('storage/' . $paket->foto2) }}" alt="foto2" width="50" height="50">
                     @else
-                        Tidak ada foto
+                        <span class="text-muted">-</span>
                     @endif
                 </td>
 
                 <!-- Foto3 -->
-                <td>
+                <td class="text-center">
                     @if($paket->foto3)
                         <img src="{{ asset('storage/' . $paket->foto3) }}" alt="foto3" width="50" height="50">
                     @else
-                        Tidak ada foto
+                        <span class="text-muted">-</span>
                     @endif
                 </td>
 
                 <!-- Foto4 -->
-                <td>
+                <td class="text-center">
                     @if($paket->foto4)
                         <img src="{{ asset('storage/' . $paket->foto4) }}" alt="foto4" width="50" height="50">
                     @else
-                        Tidak ada foto
+                        <span class="text-muted">-</span>
                     @endif
                 </td>
 
                 <!-- Actions -->
-                <td>
+                <td class="text-center">
                     <a href="{{ route('paket_wisata.edit', $paket->id) }}" class="btn btn-warning btn-sm">Edit</a>
                     <form action="{{ route('paket_wisata.destroy', $paket->id) }}" method="POST" style="display:inline;">
                         @csrf

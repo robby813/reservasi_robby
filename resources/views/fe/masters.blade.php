@@ -3,7 +3,7 @@
 
     <head>
         <meta charset="utf-8">
-        <title>{{  $title }}</title>
+        <title>{{  $title ?? 'Home'}}</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <meta content="" name="keywords">
         <meta content="" name="description">
@@ -47,9 +47,8 @@
                 </div>
                 <div class="col-lg-4 text-center text-lg-end">
                     <div class="d-inline-flex align-items-center" style="height: 45px;">
-                        <a href="{{ route('pelanggan.login') }}"><small class="me-3 text-light"><i class="fa fa-user me-2"></i>Login</small></a>
+                        {{-- <a href="{{ route('pelanggan.login') }}"><small class="me-3 text-light"><i class="fa fa-user me-2"></i>Login</small></a> --}}
                         <div class="dropdown">
-                            <a href="#" class="dropdown-toggle text-light" data-bs-toggle="dropdown"><small><i class="fa fa-home me-2"></i> My Dashboard</small></a>
                             <div class="dropdown-menu rounded">
                                 <a href="#" class="dropdown-item"><i class="fas fa-user-alt me-2"></i> My Profile</a>
                                 {{-- <a href="#" class="dropdown-item"><i class="fas fa-comment-alt me-2"></i> Inbox</a> --}}
@@ -79,13 +78,12 @@
             <div class="navbar-nav ms-auto py-0">
                 <a href="{{ route('home.index') }}" class="nav-item nav-link {{ Request::is('home') ? 'active' : '' }}">Home</a>
                 <a href="{{ route('about.index') }}" class="nav-item nav-link {{ Request::is('about') ? 'active' : '' }}">reservasi saya </a>
-                <a href="{{ route('servis.index') }}" class="nav-item nav-link {{ Request::is('servis') ? 'active' : '' }}">Berita</a>
-                <a href="{{ route('packages.index') }}" class="nav-item nav-link {{ Request::is('packages') ? 'active' : '' }}">Packages</a>
                 <a href="{{ route('blog.index') }}" class="nav-item nav-link {{ Request::is('blog') ? 'active' : '' }}">Paket Wisata</a>
+                <a href="{{ route('servis.index') }}" class="nav-item nav-link {{ Request::is('servis') ? 'active' : '' }}">Berita</a>
+                <a href="{{ route('packages.index') }}" class="nav-item nav-link {{ Request::is('packages') ? 'active' : '' }}">Penginapan</a>
+
                 <a href="{{ route('contact.index') }}" class="nav-item nav-link {{ Request::is('contact') ? 'active' : '' }}">Contact</a>
             </div>
-
-                <a href="contact.html" class="nav-item nav-link">Contact</a>
             </div>
             <a href="{{ route('booking.index') }}" class="btn btn-primary rounded-pill py-2 px-4 ms-lg-4">Book Now</a>
         </div>

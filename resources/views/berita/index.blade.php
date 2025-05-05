@@ -18,6 +18,7 @@
                 <th>Judul</th>
                 <th>Kategori</th>
                 <th>Tanggal</th>
+                <th>Isi Berita</th> <!-- Kolom untuk menampilkan isi berita -->
                 <th>Foto</th>
                 <th>Aksi</th>
             </tr>
@@ -27,7 +28,8 @@
             <tr>
                 <td>{{ $item->judul }}</td>
                 <td>{{ $item->kategori->kategori_berita }}</td>
-                <td>{{ $item->tgl_post }}</td>
+                <td>{{ \Carbon\Carbon::parse($item->tgl_post)->format('d-m-Y H:i') }}</td>
+                <td>{{ Str::limit($item->berita, 50) }} <!-- Menampilkan potongan dari isi berita --> </td>
                 <td>
                     @if($item->foto)
                         <img src="{{ asset('storage/'.$item->foto) }}" width="100">
