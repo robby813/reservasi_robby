@@ -30,10 +30,11 @@ class KategoriBeritaController extends Controller
     }
 
     public function edit($id)
-    {
-        $kategoriBerita = KategoriBerita::findOrFail($id);
-        return view('kategori_berita.edit', compact('kategoriBerita'));
-    }
+{
+    $kategori = KategoriBerita::findOrFail($id);
+    return view('kategori_berita.edit', compact('kategori'));
+}
+
 
     public function update(Request $request, $id)
     {

@@ -19,5 +19,19 @@ class Pelanggan extends Model
     {
         return $this->belongsTo(User::class, 'id_user');
     }
+
+    public function reservasi()
+    {
+        return $this->hasMany(Reservasi::class, 'id_pelanggan');
+    }
+
+    public function pelanggan()
+    {
+        return $this->hasMany(Pelanggan::class, 'id_user');
+    }
+    
 }
+
+
+
 

@@ -28,7 +28,7 @@
                 <option value="">-- Pilih Pelanggan --</option>
                 @foreach($pelanggan as $p)
                     <option value="{{ $p->id }}" {{ $data->id_pelanggan == $p->id ? 'selected' : '' }}>
-                        {{ $p->nama }}
+                        {{ $p->nama_lengkap }}
                     </option>
                 @endforeach
             </select>

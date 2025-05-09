@@ -63,6 +63,13 @@ class PaketWisataController extends Controller
         return view('paket_wisata.edit', compact('paket'));
     }
 
+    public function show($id)
+{
+    $paket = PaketWisata::findOrFail($id);
+    return view('paket_wisata.show', compact('paket'));
+}
+
+
     public function update(Request $request, $id)
     {
         $request->validate([

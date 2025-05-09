@@ -70,6 +70,13 @@ public function edit($id)
     return view('penginapan.edit', compact('data')); // Mengirimkan data ke view
 }
 
+public function show($id)
+{
+    $penginapan = Penginapan::findOrFail($id);
+    return view('packages.show', compact('penginapan'));
+}
+
+
 
     public function update(Request $request, $id)
     {

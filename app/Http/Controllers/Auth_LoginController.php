@@ -39,7 +39,7 @@ class Auth_LoginController extends Controller
         // Regenerate the session token
         $request->session()->regenerateToken();
         // Redirect to the login page
-        return redirect('/login_karyawan');
+        return redirect('/login_kantorans');
     }
 
     /**

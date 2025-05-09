@@ -24,13 +24,13 @@
             <tr>
                 <th>No</th>
                 <th>Nama Paket</th>
-                <th>Deskripsi</th>
-                <th>Fasilitas</th>
+                {{-- <th>Deskripsi</th>
+                <th>Fasilitas</th> --}}
                 <th>Harga/Hari</th>
                 <th>Foto1</th>
-                <th>Foto2</th>
+                {{-- <th>Foto2</th>
                 <th>Foto3</th>
-                <th>Foto4</th>
+                <th>Foto4</th> --}}
                 <th>Aksi</th>
             </tr>
         </thead>
@@ -39,8 +39,8 @@
             <tr>
                 <td class="text-center">{{ $index + 1 }}</td>
                 <td>{{ $paket->nama_paket }}</td>
-                <td style="max-width: 200px;">{{ \Illuminate\Support\Str::limit($paket->deskripsi, 15) }}</td>
-                <td style="max-width: 150px;">{{ \Illuminate\Support\Str::limit($paket->fasilitas, 15) }}</td>
+                {{-- <td style="max-width: 200px;">{{ \Illuminate\Support\Str::limit($paket->deskripsi, 15) }}</td>
+                <td style="max-width: 150px;">{{ \Illuminate\Support\Str::limit($paket->fasilitas, 15) }}</td> --}}
                 <td class="text-end">Rp {{ number_format($paket->harga_per_pack, 0, ',', '.') }}</td>
 
                 <!-- Foto1 -->
@@ -52,42 +52,19 @@
                     @endif
                 </td>
 
-                <!-- Foto2 -->
-                <td class="text-center">
-                    @if($paket->foto2)
-                        <img src="{{ asset('storage/' . $paket->foto2) }}" alt="foto2" width="50" height="50">
-                    @else
-                        <span class="text-muted">-</span>
-                    @endif
-                </td>
-
-                <!-- Foto3 -->
-                <td class="text-center">
-                    @if($paket->foto3)
-                        <img src="{{ asset('storage/' . $paket->foto3) }}" alt="foto3" width="50" height="50">
-                    @else
-                        <span class="text-muted">-</span>
-                    @endif
-                </td>
-
-                <!-- Foto4 -->
-                <td class="text-center">
-                    @if($paket->foto4)
-                        <img src="{{ asset('storage/' . $paket->foto4) }}" alt="foto4" width="50" height="50">
-                    @else
-                        <span class="text-muted">-</span>
-                    @endif
-                </td>
-
                 <!-- Actions -->
                 <td class="text-center">
+                    <a href="{{ route('paket_wisata.show', $paket->id) }}" class="btn btn-info btn-sm">Detail</a>
+
                     <a href="{{ route('paket_wisata.edit', $paket->id) }}" class="btn btn-warning btn-sm">Edit</a>
+
                     <form action="{{ route('paket_wisata.destroy', $paket->id) }}" method="POST" style="display:inline;">
                         @csrf
                         @method('DELETE')
                         <button onclick="return confirm('Yakin mau hapus?')" class="btn btn-danger btn-sm">Hapus</button>
                     </form>
                 </td>
+
             </tr>
             @endforeach
         </tbody>

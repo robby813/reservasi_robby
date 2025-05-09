@@ -158,8 +158,7 @@
                             <div class="dropdown-menu dropdown-menu-right profile-notification">
                                 <div class="pro-head">
                                     <img src="back-end/images/user/avatar-1.jpg" class="img-radius" alt="User-Profile-Image">
-                                    <span>Ajogodok</span>
-
+                                    <span>{{ Auth::guard('karyawan')->user()->karyawan->nama_karyawan }}</span>
                                     <!-- Logout Link yang trigger form -->
                                     <a href="#" class="dud-logout" title="Logout"
                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
@@ -167,7 +166,7 @@
                                     </a>
 
                                     <!-- Hidden logout form -->
-                                    <form id="logout-form" action="{{ route('logout_karyawan') }}" method="GET" style="display: none;">
+                                    <form id="logout-form" action="{{ route('logout_kantorans') }}" method="GET" style="display: none;">
                                         @csrf
                                     </form>
                                 </div>

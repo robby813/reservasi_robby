@@ -43,8 +43,10 @@ return [
 
         'karyawan' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'kantorans',
         ],
+
+
     ],
 
     /*
@@ -71,10 +73,11 @@ return [
         ],
 
         // Tambahkan provider ini untuk karyawan
-        'karyawans' => [
+        'kantorans' => [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\User::class),
         ],
+
     ],
 
     /*

@@ -1,56 +1,77 @@
 @extends('fe.masters')
+
 @section('content')
 
-        <!-- Header Start -->
-        <div class="container-fluid bg-breadcrumb">
-            <div class="container text-center py-5" style="max-width: 900px;">
-                <h3 class="text-white display-3 mb-4">About Us</h1>
-                <ol class="breadcrumb justify-content-center mb-0">
-                    <li class="breadcrumb-item"><a href="{{ route('home.index') }}">Home</a></li>
-                    <li class="breadcrumb-item active text-white">About</li>
-                </ol>
-            </div>
-        </div>
-        <!-- Header End -->
-
-<div class="container-fluid about py-5">
-    <div class="container py-5">
-        <div class="row g-5 align-items-center">
-            <div class="col-lg-5">
-                <div class="h-100" style="border: 50px solid; border-color: transparent #13357B transparent #13357B;">
-                    <img src="{{ asset ('front-end/img/about-img.jpg') }}" class="img-fluid w-100 h-100" alt="">
-                </div>
-            </div>
-            <div class="col-lg-7" style="background: linear-gradient(rgba(255, 255, 255, .8), rgba(255, 255, 255, .8)), url(img/about-img-1.png);">
-                <h5 class="section-about-title pe-3">About Us</h5>
-                <h1 class="mb-4">Welcome to <span class="text-primary">Travela</span></h1>
-                <p class="mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias, dolorum, doloribus sunt dicta, officia voluptatibus libero necessitatibus natus impedit quam ullam assumenda? Id atque iste consectetur. Commodi odit ab saepe!</p>
-                <p class="mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium quos voluptatem suscipit neque enim, doloribus ipsum rem eos distinctio, dignissimos nisi saepe nulla? Libero numquam perferendis provident placeat molestiae quia?</p>
-                <div class="row gy-2 gx-4 mb-4">
-                    <div class="col-sm-6">
-                        <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>First Class Flights</p>
-                    </div>
-                    <div class="col-sm-6">
-                        <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Handpicked Hotels</p>
-                    </div>
-                    <div class="col-sm-6">
-                        <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>5 Star Accommodations</p>
-                    </div>
-                    <div class="col-sm-6">
-                        <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Latest Model Vehicles</p>
-                    </div>
-                    <div class="col-sm-6">
-                        <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>150 Premium City Tours</p>
-                    </div>
-                    <div class="col-sm-6">
-                        <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>24/7 Service</p>
-                    </div>
-                </div>
-                <a class="btn btn-primary rounded-pill py-3 px-5 mt-2" href="">Read More</a>
-            </div>
-        </div>
+<!-- Header Start -->
+<div class="container-fluid bg-breadcrumb">
+    <div class="container text-center py-5" style="max-width: 900px;">
+        <h3 class="text-white display-3 mb-4">Reservasi Saya</h3>
+        <ol class="breadcrumb justify-content-center mb-0">
+            <li class="breadcrumb-item"><a href="{{ route('home.index') }}">Home</a></li>
+            <li class="breadcrumb-item active text-white">Reservasi Saya</li>
+        </ol>
     </div>
 </div>
+<!-- Header End -->
+
+<!-- Reservasi Saya Start -->
+<div class="container-fluid py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h5 class="section-about-title">Reservasi</h5>
+            <h1 class="display-5">Daftar Reservasi Saya</h1>
+        </div>
+
+        @if($reservasi->count() > 0)
+        <div class="table-responsive shadow rounded">
+            <table class="table table-bordered align-middle text-center mb-0">
+                <thead class="table-primary">
+                    <tr>
+                        <th>#</th>
+                        <th>Paket Wisata</th>
+                        <th>Tanggal Mulai</th>
+                        <th>Tanggal Selesai</th>
+                        <th>Jumlah Peserta</th>
+                        <th>Total Bayar</th>
+                        <th>Status</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($reservasi as $index => $r)
+                        <tr>
+                            <td>{{ $index + 1 }}</td>
+                            <td>{{ $r->paket->nama_paket }}</td>
+                            <td>{{ \Carbon\Carbon::parse($r->tanggal_mulai)->format('d M Y H:i') }}</td>
+                            <td>{{ \Carbon\Carbon::parse($r->tanggal_selesai)->format('d M Y H:i') }}</td>
+                            <td>{{ $r->jumlah_peserta }} Orang</td>
+                            <td>Rp {{ number_format($r->total_bayar, 0, ',', '.') }}</td>
+                            <td>
+                                @if($r->status_reservasi_wisata == 'dikonfirmasi')
+                                    <span class="badge bg-success">Dikonfirmasi</span>
+                                @elseif($r->status_reservasi_wisata == 'menunggu')
+                                    <span class="badge bg-warning text-dark">Menunggu</span>
+                                @elseif($r->status_reservasi_wisata == 'dibatalkan')
+                                    <span class="badge bg-danger">Dibatalkan</span>
+                                @else
+                                    <span class="badge bg-secondary">{{ ucfirst($r->status_reservasi_wisata) }}</span>
+                                @endif
+                            </td>
+                            <td>
+                                <a href="{{ route('about.show', $r->id) }}" class="btn btn-sm btn-outline-primary rounded-pill px-3">Detail</a>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+        @else
+            <div class="alert alert-info text-center">
+                Kamu belum memiliki reservasi.
+            </div>
+        @endif
+    </div>
+</div>
+<!-- Reservasi Saya End -->
+
 @endsection
-
-

@@ -13,6 +13,7 @@ class PackagesController extends Controller
     {
         return view('packages.index', [
             'title' => 'Packages trvela',
+            'penginapan' => \App\Models\Penginapan::all(),
         ]);
     }
 
@@ -37,7 +38,8 @@ class PackagesController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $penginapan = \App\Models\Penginapan::with('penginapan')->findOrFail($id);
+        return view('packages.show', compact('packages'));
     }
 
     /**

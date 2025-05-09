@@ -25,9 +25,6 @@
                     <th>Nama Penginapan</th>
                     <th>Fasilitas</th>
                     <th>Foto 1</th>
-                    <th>Foto 2</th>
-                    <th>Foto 3</th>
-                    <th>Foto 4</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -45,7 +42,7 @@
                             -
                         @endif
                     </td>
-                    <td>
+                    {{-- <td>
                         @if($item->foto2)
                             <img src="{{ asset('storage/' . $item->foto2) }}" width="80" class="img-thumbnail">
                         @else
@@ -65,7 +62,7 @@
                         @else
                             -
                         @endif
-                    </td>
+                    </td> --}}
                     <td>
                         <a href="{{ route('penginapan.edit', $item->id) }}" class="btn btn-warning btn-sm">Edit</a>
                         <form action="{{ route('penginapan.destroy', $item->id) }}" method="POST" style="display:inline;">

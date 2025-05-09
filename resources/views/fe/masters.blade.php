@@ -47,7 +47,26 @@
                 </div>
                 <div class="col-lg-4 text-center text-lg-end">
                     <div class="d-inline-flex align-items-center" style="height: 45px;">
-                        {{-- <a href="{{ route('pelanggan.login') }}"><small class="me-3 text-light"><i class="fa fa-user me-2"></i>Login</small></a> --}}
+                        @if (Auth::check() && Auth::user()->pelanggan)
+                        <a href="{{ route('home.index') }}">
+                            <small class="me-3 text-light">
+                                <i class="fa fa-user me-2"></i>{{ Auth::user()->pelanggan->nama_lengkap }}
+                            </small>
+                        </a>
+                        <a href="{{ route('logout') }}">
+                            <small class="me-3 text-light">
+                                <i class="fa fa-user me-2"></i>Logout
+                            </small>
+                        </a>
+                    @else
+                        <a href="{{ route('pelanggan.login') }}">
+                            <small class="me-3 text-light">
+                                <i class="fa fa-user me-2"></i>Login
+                            </small>
+                        </a>
+                    @endif
+
+
                         <div class="dropdown">
                             <div class="dropdown-menu rounded">
                                 <a href="#" class="dropdown-item"><i class="fas fa-user-alt me-2"></i> My Profile</a>
@@ -77,15 +96,15 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto py-0">
                 <a href="{{ route('home.index') }}" class="nav-item nav-link {{ Request::is('home') ? 'active' : '' }}">Home</a>
-                <a href="{{ route('about.index') }}" class="nav-item nav-link {{ Request::is('about') ? 'active' : '' }}">reservasi saya </a>
+
                 <a href="{{ route('blog.index') }}" class="nav-item nav-link {{ Request::is('blog') ? 'active' : '' }}">Paket Wisata</a>
                 <a href="{{ route('servis.index') }}" class="nav-item nav-link {{ Request::is('servis') ? 'active' : '' }}">Berita</a>
                 <a href="{{ route('packages.index') }}" class="nav-item nav-link {{ Request::is('packages') ? 'active' : '' }}">Penginapan</a>
-
+                <a href="{{ route('about.index') }}" class="nav-item nav-link {{ Request::is('about') ? 'active' : '' }}">reservasi saya </a>
                 <a href="{{ route('contact.index') }}" class="nav-item nav-link {{ Request::is('contact') ? 'active' : '' }}">Contact</a>
             </div>
             </div>
-            <a href="{{ route('booking.index') }}" class="btn btn-primary rounded-pill py-2 px-4 ms-lg-4">Book Now</a>
+            {{-- <a href="{{ route('booking.index') }}" class="btn btn-primary rounded-pill py-2 px-4 ms-lg-4">Book Now</a> --}}
         </div>
     </nav>
 </div>
@@ -110,7 +129,7 @@
                                 <i class="fas fa-share fa-2x text-white me-2"></i>
                                 <a class="btn-square btn btn-primary rounded-circle mx-1" href=""><i class="fab fa-facebook-f"></i></a>
                                 <a class="btn-square btn btn-primary rounded-circle mx-1" href=""><i class="fab fa-twitter"></i></a>
-                                <a class="btn-square btn btn-primary rounded-circle mx-1" href=""><i class="fab fa-instagram"></i></a>
+                                <a class="btn-square btn btn-primary rounded-circle mx-1" href="        "><i class="fab fa-instagram"></i></a>
                                 <a class="btn-square btn btn-primary rounded-circle mx-1" href=""><i class="fab fa-linkedin-in"></i></a>
                             </div>
                         </div>
@@ -190,6 +209,5 @@
         <!-- Template Javascript -->
         <script src="{{ asset ('front-end/js/main.js') }}"></script>
 
-
-
+        @stack('scripts')
     </body>

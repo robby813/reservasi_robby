@@ -1,20 +1,34 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Auth;
+use App\Models\Reservasi;
 use Illuminate\Http\Request;
+
 
 class AboutController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        return view('about.index', [
-            'title' => 'ABOUT trvela',
-        ]);
+
+     public function index()
+{
+    $user = auth('web')->user(); // akan null jika belum login
+
+    if (!$user) {
+        $reservasi = collect(); // kosongkan jika tidak login
+    } else {
+        $pelanggan = $user->pelanggan;
+        $reservasi = $pelanggan ? $pelanggan->reservasi : collect();
     }
+
+    return view('about.index', [
+        'title' => 'ABOUT travel',
+        'reservasi' => $reservasi,
+    ]);
+}
+
 
     /**
      * Show the form for creating a new resource.
@@ -37,7 +51,8 @@ class AboutController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $reservasi = \App\Models\Reservasi::findOrFail($id);
+        return view('about.show', compact('reservasi'));
     }
 
     /**
